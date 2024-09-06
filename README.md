@@ -178,7 +178,6 @@ Como ler um relação entre caixas:
 
 ![Ajuda com uml](./imagens/ajudaa_uml.png)
 
-Neste exemplo, existe uma relação entre Escola e AnoLetivo. Uma escolha pode pertencer a um ou vários anos letivos (1..*), e um ano letivo pode conter uma ou várias escolas (1..*).
+Neste exemplo, existe uma relação entre Escola e AnoLetivo. Uma escolha pode pertencer a um ou vários anos letivos (1..\*), e um ano letivo pode conter uma ou várias escolas (1..\*).
 
-Para além disso, a Escola também está relacionada com o Agrupamento. Neste caso, uma escola pertence a zero ou a um agrupamento (0..1), mas um agrupamento pode conter uma ou várias escolas (1..*).
-<br>w
+Para além disso, a Escola também está relacionada com o Agrupamento. Neste caso, uma escola pertence a zero ou a um agrupamento (0..1), mas um agrupamento pode conter uma ou várias escolas (1..\*).

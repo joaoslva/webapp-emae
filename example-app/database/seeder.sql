@@ -1,0 +1,33 @@
+DROP SCHEMA IF EXISTS dev CASCADE;
+CREATE SCHEMA dev IF NOT EXISTS dev;
+SET search_path TO dev;
+
+DROP TABLE IF EXISTS Faq;
+DROP TABLE IF EXISTS SchoolYear;
+
+CREATE TABLE Faq (
+    id SERIAL PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL  
+);
+
+CREATE TABLE SchoolYear (
+    id SERIAL PRIMARY KEY,
+    "year" VARCHAR(4) NOT NULL
+);
+
+CREATE TABLE Class (
+    id SERIAL PRIMARY KEY,
+    "name" VARCHAR(100) NOT NULL,
+    class_id INT NOT NULL,
+    FOREIGN KEY class_id REFERENCES SchoolYear (id)
+);
+
+
+CREATE TABLE Teacher (
+    id SERIAL PRIMARY KEY,
+    "name" VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    "password" TEXT NOT NULL,
+    isAdmin BOOLEAN NOT NULL
+);
