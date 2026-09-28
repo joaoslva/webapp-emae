@@ -1,183 +1,72 @@
-# Aplicação Web - EMAE
+# EMAE
 
-Olá equipa da EMAE! Este é o documento que apresenta uma primeira visão sobre o que será a melhor aplicação web para recolher os dados relativos às medidas.
+Ferramenta para equipas EMAEI registarem e analisarem a eficácia das medidas de suporte à
+aprendizagem e à inclusão, ao abrigo do Decreto-Lei n.º 54/2018. Substitui o preenchimento
+em folhas de Excel partilhadas.
 
-<br>
+*A tool for EMAEI teams in Portuguese schools to record and analyse the efficacy of
+inclusion support measures under Decreto-Lei 54/2018. It replaces a shared-spreadsheet
+workflow. The interface is in European Portuguese; code and documentation are in English.*
 
-## Intervenientes
-No contexto desta web app, existem 2 tipos de utilizadores:
+## Status
 
-- **Professores**: estes utilizadores apenas preenchem os campos das medidas das turmas que lecionam. Para além desta interação, podem autenticar-se na aplicação e ver avisos acerca de dados que lhe faltam preencher. 
+Early development. Not yet usable. There is no release and no deployment.
 
-- **Administradores**: membros da equipa de trabalho, que têm controlo total sobre a aplicação. Criam as turmas, com os alunos e disciplinas associadas. Podem também ver os dados preenchidos pelos professores e aceder a várias estatísticas sobre os dados recolhidos.
+## What it does
 
-<br>
+A school's EMAEI records, for each student receiving support measures, how effective each
+measure is in each subject, each term. The tool captures that, aggregates it, and produces
+the per-student evaluation document the school has to issue and sign.
 
-## User Stories
+Design decisions that shape it:
 
-User stories são descrições simples de uma funcionalidade espectável da aplicação, contada do ponto de vista de um utilizador da aplicação. 
+- **One school, one instance.** Self-hosted on the school's own infrastructure. The school
+  is the data controller; no data leaves its premises.
+- **Pseudonymous core.** Statistics join on a student identifier, never on names. The
+  identity layer is thin and access-scoped.
+- **Configurable measure catalogue.** Measures are seeded from the statute (Articles 8, 9,
+  10 and 28) and grouped by article. Schools enable, disable and relabel; they do not
+  invent measures from nothing.
+- **Export is first-class.** Data can always be exported to Excel or CSV, so returning to
+  the previous workflow costs nothing.
 
-### Professores
-- **US01**: Como professor, quero autenticar-me na aplicação.
-- **US02**: Como professor, quero preencher os campos das medidas das turmas que leciono com os dados que recolhi.
-- **US03**: Como professor, que poder editar os dados que inseri previamente.
-- **US04**: Como professor, quero ser informado dos meus alunos que ainda não têm as medidas preenchidas.
-- **US05**: Como professor, quero ter uma página de ajuda para saber como utilizar a aplicação.
+## Stack
 
-<br>
+TypeScript throughout. A framework-free `core` package holds the domain logic, schema and
+aggregations. Postgres for storage, a separate API, and a Vite and React single-page
+application built to static files, served same-origin behind one reverse proxy.
 
-### Administradores
+## Privacy
 
-- **US11**: Como administrador, quero autenticar-me na aplicação.
-- **US12**: Como administrador, quero criar turmas.
-- **US13**: Como administrador, quero especificar detalhes de cada turma, como o agrupamento a que pertencem.
-- **US14**: Como administrador, quero associar alunos às turmas.
-- **US15**: Como administrador, quero associar disciplinas às turmas.
-- **US16**: Como administrador, quero conseguir agrupar os dados por ano letivo.
-- **US17**: Como administrador, quero criar, modificar e eliminar contas para os professores.
-- **US18**: Como administrador, quero modificar os dados de turmas, alunos e disciplinas.
-- **US19**: Como administrador, quero definir os valores que os professores podem atribuir à eficácia das medida.
-- **US20**: Como administrador, quero ter acesso às estatísticas das disciplinas.
-- **US21**: Como administrador, quero ter acesso às estatísticas dos alunos.
-- **US22**: Como administrador, quero ter acesso às estatísticas das medidas.
-- **US23**: Como administrador, quero ter acesso às estatísticas das escolas.
-- **US24**: Como administrador, quero ter acesso às estatísticas dos agrupamentos.
-- **US25**: Como administrador, quero ter acesso às estatísticas dos anos escolar.
-- **US26**: Como administrador, quero experimentar a visão do professor para verificar se os dados estão corretos.
-- **US27**: Como administrador, quero preencher os dados dos meus alunos.
+This software handles special-category personal data about minors under GDPR Article 9.
 
-<br>
+Development uses synthetic data only. The author does not access real student data. Any
+school deploying this is the data controller and is responsible for its own record of
+processing activities and, where required, its data protection impact assessment. See
+`docs/` for the technical detail a data protection officer would need.
 
-## Mockups
+## Licence
 
-Os mockups são representações visuais de como será a aplicação. Estes são apenas uma primeira versão e, muito provavelmente, sofrerão alterações ao longo do desenvolvimento, considerando o vosso feedback.
+GNU Affero General Public License v3.0. See `LICENSE`.
 
-![Autenticação](./mockups/AuthPage.png)
-<p align="center">Figura 1 - Página de autenticação</p>
+In short: anyone may use, study, modify and share this, including commercially. But anyone
+who modifies it and runs it as a network service must publish their modified source under
+the same licence. It cannot be turned into a closed, proprietary product.
 
----
+Copyright (C) 2026 João Silva
 
-![FAQs](./mockups/FAQPage.png)
-<p align="center">Figura 2 - Página de FAQs</p>
+This program is free software: you can redistribute it and/or modify it under the terms of
+the GNU Affero General Public License as published by the Free Software Foundation, either
+version 3 of the License, or (at your option) any later version.
 
----
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
 
-![Contactos](./mockups/ContactsPage.png)
-<p align="center">Figura 3 - Página de contactos</p>
+You should have received a copy of the GNU Affero General Public License along with this
+program. If not, see <https://www.gnu.org/licenses/>.
 
----
+## Documentation
 
-![Página Inicial Professor 1](./mockups/HomePage-Professor%20normal%201.png)
-<p align="center">Figura 4 - Página inicial de um professor</p>
-
----
-
-![Página Inicial Professor 2](./mockups/HomePage-Professor%20normal%202.png)
-<p align="center">Figura 5 - Página inicial de um professor</p>
-
----
-
-![Página Inicial Professor 3](./mockups/HomePage-Professor%20normal%203.png)
-<p align="center">Figura 6 - Página inicial de um professor</p>
-
----
-
-![Página Inicial Professor 4](./mockups/HomePage-Professor%20normal%204.png)
-<p align="center">Figura 7 - Página inicial de um professor</p>
-
----
-
-![Página Inicial Administrador 1](./mockups/Admin%20Dashboard.png)
-<p align="center">Figura 8 - Página inicial de um administrador</p>
-
----
-
-![Gestão de Agrupamentos 1](./mockups/Gestão%20Agrupamentos%201.png)
-<p align="center">Figura 9 - Página de gestão de agrupamentos</p>
-
----
-
-![Gestão de Agrupamentos 2](./mockups/Gestão%20Agrupamentos%202.png)
-<p align="center">Figura 10 - Página de gestão de agrupamentos</p>
-
----
-
-![Gestão de Agrupamentos 3](./mockups/Gestão%20Agrupamentos%203.png)
-<p align="center">Figura 11 - Página de gestão de agrupamentos</p>
-
----
-
-![Gestão de Agrupamentos 4](./mockups/Gestão%20Agrupamentos%204.png)
-<p align="center">Figura 12 - Página de gestão de agrupamentos</p>
-
----
-
-![Gestão de Turmas 1](./mockups/Gestão%20Turmas%201.png)
-<p align="center">Figura 13 - Página de gestão de turmas</p>
-
----
-
-![Gestão de Turmas 2](./mockups/Gestão%20Turmas%202.png)
-<p align="center">Figura 14 - Página de gestão de turmas</p>
-
----
-
-![Gestão de Turmas 3](./mockups/Gestão%20Turmas%203.png)
-<p align="center">Figura 15 - Página de gestão de turmas</p>
-
----
-
-![Estatisticas](./mockups/StatisticsPageBasicFilter.png) 
-<p align="center">Figura 16 - Página de estatísticas</p>
-
----
-
-![Estatisticas com escola aplicada](./mockups/StatisticsPageSchoolFilter.png)
-<p align="center">Figura 17 - Página de estatísticas com escola aplicada</p>
-
----
-
-![Estatisticas de uma medida](./mockups/StatisticsPageSpecificMeasure.png)
-<p align="center">Figura 18 - Página de estatísticas de uma medida</p>
-
----
-
-![Estatisticas com disciplina selecionada](./mockups/StatisticsPageSubjectFilter.png)
-<p align="center">Figura 19 - Página de estatísticas com disciplina selecionada</p>
-
----
-
-![Estatisticas com turma selecionada](./mockups/StatisticsPageClassFilter.png)
-<p align="center">Figura 20 - Página de estatísticas com turma selecionada</p>
-
----
-
-![Estatisticas de uma turma](./mockups/StatisticsPageSubjectFilter.png)
-<p align="center">Figura 21 - Página de estatísticas de uma turma</p>
-
----
-
-![Estatisticas os alunos de uma turma](./mockups/StatisticsPageStudentFilter.png)
-<p align="center">Figura 22 - Página de estatísticas dos alunos de uma turma</p>
-
----
-
-<br>
-
-## Base de Dados
-
-Esta será a estrutura da base de dados. Embora seja algo mais técnico, dá para dar-vos uma ideia dos objetos que farão parte da aplicação, bem como das relações entre eles. 
-
-Um traço entre duas caixas significa que existe uma relação entre os objetos que representam e os números em cada extremidade do traço indicam o número de objetos de cada tipo que podem estar relacionados.
-
-![Esquema da base de dados](./imagens/database_uml.png)
-<p align="center">Figura 23 - Esquema da base de dados</p>
-
-
-Como ler um relação entre caixas:
-
-![Ajuda com uml](./imagens/ajudaa_uml.png)
-
-Neste exemplo, existe uma relação entre Escola e AnoLetivo. Uma escolha pode pertencer a um ou vários anos letivos (1..\*), e um ano letivo pode conter uma ou várias escolas (1..\*).
-
-Para além disso, a Escola também está relacionada com o Agrupamento. Neste caso, uma escola pertence a zero ou a um agrupamento (0..1), mas um agrupamento pode conter uma ou várias escolas (1..\*).
+- `docs/domain-model.md` - the data model and where it came from
+- `docs/legacy-user-stories.md` - requirements recovered from the first attempt

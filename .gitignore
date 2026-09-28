@@ -1,0 +1,22 @@
+# Local working documents, not for the repository
+docs/implementation-plan.md
+
+# Source artefacts from the school, kept locally only
+examples/
+
+# Secrets
+.env
+docker/.env
+*.local
+
+# Build output and dependencies
+node_modules/
+dist/
+build/
+coverage/
+
+# Editor and OS noise
+.DS_Store
+*.swp
+.idea/
+.vscode/
